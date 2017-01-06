@@ -12,13 +12,14 @@ install:
   # dump version
   - git describe --tags --always
   # install cython for building lupa
-  - pip install cython
+  - "%PYTHON%\\Scripts\\conda install -y cython"
   # install and build Lua
   - git clone http://luajit.org/git/luajit-2.0.git
   - cd luajit-2.0
   - git describe --tags --always
   - "\"%LOCALAPPDATA%\\Programs\\Common\\Microsoft\\Visual C++ for Python\\9.0\\vcvarsall.bat\" x86"
   - cd src
+  - ps: "iwr https://raw.githubusercontent.com/mattn/gntp-send/master/include/msinttypes/stdint.h -OutFile \".\\stdint.h\""
   - msvcbuild
   - cd ../..
   # build lupa
