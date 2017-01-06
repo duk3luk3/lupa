@@ -12,16 +12,16 @@ install:
   # dump version
   - git describe --tags --always
   # install and build Lua
-  - git clone https://github.com/LuaDist/lua.git
-  - git -C lua describe --tags --always
-  - mkdir lua-build
-  - cd lua-build
+  - git clone https://github.com/LuaDist/lua.git --branch lua-5.1
+  - cd lua
+  - git describe --tags --always
   - "\"%LOCALAPPDATA%\\Programs\\Common\\Microsoft\\Visual C++ for Python\\9.0\\vcvarsall.bat\" x86"
-  - cmake -G "NMake Makefiles" ../lua
+  - cmake -G "NMake Makefiles"
   - nmake
+  - ps: "iwr https://raw.githubusercontent.com/mattn/gntp-send/master/include/msinttypes/stdint.h -OutFile \".\\stdint.h\""
   - cd ..
   # build lupa
-  - "%PYTHON%\\python setup.py bdist_msi --global-option=build_ext --global-option=\"-I%APPVEYOR_BUILD_FOLDER%\\lua-build;%APPVEYOR_BUILD_FOLDER%\\lua\\src\" --global-option=\"-L%APPVEYOR_BUILD_FOLDER%\\lua-build\" --global-option=\"-lliblua_static\""
+  - "%PYTHON%\\python setup.py bdist_msi"
 
 artifacts:
   - path: '**\*.msi'
