@@ -11,6 +11,8 @@ init:
 install:
   # dump version
   - git describe --tags --always
+  # install cython for building lupa
+  - pip install cython
   # install and build Lua
   - git clone http://luajit.org/git/luajit-2.0.git
   - cd luajit-2.0
